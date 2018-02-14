@@ -34,7 +34,7 @@ get('https://swapi.co/api/people/1/', function(err, luke) {
         }
 
         luke.homeworld = homeworld
-        console.log(`${luke.name} born in ${luke}.`)
+        console.log(`${luke.name} born in ${luke.homeworld.name}.`)
     })
 
 })

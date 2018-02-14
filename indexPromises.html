@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fix Callback hell with Promises</title>
+</head>
+
+<body>
+    <h1 id="agenda">I am waking up</h1>
+
+    <script>
+        const WAKE_UP = 3000
+        const SHOWER = 2000
+        const DRESS = 2000
+        const BREAKFAST = 3000
+        const STUDY = 5000
+        const $agenda = document.getElementById('agenda')
+
+        function wakeUp() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('I am taking a shower...')
+                }, WAKE_UP)
+            })
+        }
+
+        function shower(message) {
+            $agenda.textContent = message
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('I am dressing...')
+                }, SHOWER)
+            })
+        }
+
+        function dressing(message) {
+            $agenda.textContent = message
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('I am having breakfast...')
+                        //reject('I can not have breakfast since I do not have food')
+                }, DRESS)
+            })
+        }
+
+        function breakfast(message) {
+            $agenda.textContent = message
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('I am studying...')
+                }, BREAKFAST)
+            })
+        }
+
+        function lastMessage(message) {
+            $agenda.style.color = 'green'
+            $agenda.textContent = message
+        }
+
+        function error(message) {
+            $agenda.style.color = 'red'
+            $agenda.textContent = message
+        }
+
+        wakeUp()
+            .then(shower)
+            .then(dressing)
+            .then(breakfast)
+            .then(lastMessage)
+            .catch(error)
+    </script>
+</body>
+
+</html>
